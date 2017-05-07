@@ -1,0 +1,7 @@
+﻿.main-container {
+    padding-top: 70px;
+}
+
+pre:empty {
+    display: none;
+}

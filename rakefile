@@ -1,0 +1,100 @@
+
+require 'rake'
+require 'Pathname'
+require 'rake/clean'
+
+
+
+tests = FileList.new('SchoolWebApi.Tests.dll', 'SchoolWebApi-integration-tests.dll')
+
+module Path
+	@root = Pathname.new(__FILE__).parent
+	
+	def self.out
+		@root + "out"
+	end
+
+	def self.root
+		@root
+	end
+
+	def self.packages
+		@root + "packages"
+	end
+
+	def self.msbuild
+		Pathname.new(ENV['ProgramFiles(x86)']) + "MSBuild" + "14.0" + "Bin"
+	end
+
+	def self.solution
+		@root
+	end
+
+	def self.deployment
+		return @root + "../" + "deployment"
+	end
+end
+
+CLEAN.include(Path.out)
+
+class TestRunner 
+
+	include Path
+	@NUNIT_CONSOLE_EXE = Path.packages + "NUnit.Runners.2.6.4" + "tools" + "nunit-console"
+	@NUNIT_COLOUR_EXE = Path.packages + "nunit-color-console.0.1.0.0" + "lib" + "nunit-color-console"
+
+	def self.run(tests_classes)
+		nunit_console = "#{Path.packages}/NUnit.Runners.2.6.4/tools/nunit-console.exe"
+		
+		exec("#{@NUNIT_COLOUR_EXE} #{nunit_console} #{tests_classes}")
+	end
+end
+
+
+class WebPublisher
+
+	def initialize(path)
+		@path = path
+		@temp_deployment_dir = @path.deployment + "tmp"
+	end
+	
+	def publish
+		system("\"#{@path.msbuild}/MSBuild.exe\" #{@path.solution}/WebApplication.sln  /p:Configuration=Release /p:Platform=\"Any CPU\" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:PackageLocation=\"#{@temp_deployment_dir}\"")
+
+		group_by_project
+
+		system("rm -r #{@temp_deployment_dir}")
+	end
+
+	def group_by_project
+		
+		FileList.new(Dir.glob(@temp_deployment_dir.to_s +  "/*.zip")).each  do |file|
+
+			path = Pathname.new(file)
+			filename = path.basename.to_s.match('.*[^(.zip)$]')		
+
+			target = path.parent.parent.join(filename.to_s)
+			Dir.mkdir(target.to_s) unless Dir.exists?(target)
+
+			file_list = FileList.new(Dir.glob(@temp_deployment_dir.to_s +  "/#{filename}*.*")).each do |f|
+				system("cp #{f} #{target.to_s}/.")
+			end 
+		end
+	end
+end
+
+desc "Build Web API`"
+task :build do
+	sh "\"#{Path.msbuild}/MSBuild.exe\" #{Path.solution}/WebApplication.sln /t:build /p:Configuration=Release /p:Platform=\"Any CPU\""
+end
+
+desc "Publish Web Application"
+task :publish => [:build] do
+	publisher = WebPublisher.new(Path)
+	publisher.publish
+end
+
+desc "Run Unit test"
+task :unit do 
+	TestRunner.run(tests.to_ary.map { |i| Path.out + i.to_s }.join(" "))
+end

@@ -1,0 +1,40 @@
+C:\Users\Mauro\DevExample\IdentityServer3.Samples-master\source\JavaScript Walkthrough\JsApplication\bin\roslyn\csc.exe
+C:\Users\Mauro\DevExample\IdentityServer3.Samples-master\source\JavaScript Walkthrough\JsApplication\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Mauro\DevExample\IdentityServer3.Samples-master\source\JavaScript Walkthrough\JsApplication\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Mauro\DevExample\IdentityServer3.Samples-master\source\JavaScript Walkthrough\JsApplication\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Mauro\DevExample\IdentityServer3.Samples-master\source\JavaScript Walkthrough\JsApplication\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Mauro\DevExample\IdentityServer3.Samples-master\source\JavaScript Walkthrough\JsApplication\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Mauro\DevExample\IdentityServer3.Samples-master\source\JavaScript Walkthrough\JsApplication\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Mauro\DevExample\IdentityServer3.Samples-master\source\JavaScript Walkthrough\JsApplication\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Mauro\DevExample\IdentityServer3.Samples-master\source\JavaScript Walkthrough\JsApplication\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Mauro\DevExample\IdentityServer3.Samples-master\source\JavaScript Walkthrough\JsApplication\bin\roslyn\vbc.exe
+C:\Users\Mauro\DevExample\IdentityServer3.Samples-master\source\JavaScript Walkthrough\JsApplication\bin\roslyn\VBCSCompiler.exe
+C:\Users\Mauro\DevExample\IdentityServer3.Samples-master\source\JavaScript Walkthrough\JsApplication\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Mauro\DevExample\IdentityServer3.Samples-master\source\JavaScript Walkthrough\JsApplication\bin\JsApplication.dll.config
+C:\Users\Mauro\DevExample\IdentityServer3.Samples-master\source\JavaScript Walkthrough\JsApplication\bin\JsApplication.dll
+C:\Users\Mauro\DevExample\IdentityServer3.Samples-master\source\JavaScript Walkthrough\JsApplication\bin\JsApplication.pdb
+C:\Users\Mauro\DevExample\IdentityServer3.Samples-master\source\JavaScript Walkthrough\JsApplication\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Mauro\DevExample\IdentityServer3.Samples-master\source\JavaScript Walkthrough\JsApplication\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Mauro\DevExample\IdentityServer3.Samples-master\source\JavaScript Walkthrough\JsApplication\obj\Debug\JsApplication.dll
+C:\Users\Mauro\DevExample\IdentityServer3.Samples-master\source\JavaScript Walkthrough\JsApplication\obj\Debug\JsApplication.pdb
+C:\Users\Mauro\DevExample\IdentityServer3.Samples-master\source\JavaScript Walkthrough\JsApplication\obj\Debug\JsApplication.csprojResolveAssemblyReference.cache
+C:\Users\Mauro\Documents\DEV\WebApplication\JsApplication\bin\roslyn\csc.exe
+C:\Users\Mauro\Documents\DEV\WebApplication\JsApplication\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Mauro\Documents\DEV\WebApplication\JsApplication\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Mauro\Documents\DEV\WebApplication\JsApplication\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Mauro\Documents\DEV\WebApplication\JsApplication\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Mauro\Documents\DEV\WebApplication\JsApplication\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Mauro\Documents\DEV\WebApplication\JsApplication\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Mauro\Documents\DEV\WebApplication\JsApplication\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Mauro\Documents\DEV\WebApplication\JsApplication\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Mauro\Documents\DEV\WebApplication\JsApplication\bin\roslyn\vbc.exe
+C:\Users\Mauro\Documents\DEV\WebApplication\JsApplication\bin\roslyn\VBCSCompiler.exe
+C:\Users\Mauro\Documents\DEV\WebApplication\JsApplication\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Mauro\Documents\DEV\WebApplication\JsApplication\bin\JsApplication.dll.config
+C:\Users\Mauro\Documents\DEV\WebApplication\JsApplication\bin\JsApplication.dll
+C:\Users\Mauro\Documents\DEV\WebApplication\JsApplication\bin\JsApplication.pdb
+C:\Users\Mauro\Documents\DEV\WebApplication\JsApplication\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Mauro\Documents\DEV\WebApplication\JsApplication\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Mauro\Documents\DEV\WebApplication\JsApplication\obj\Debug\JsApplication.dll
+C:\Users\Mauro\Documents\DEV\WebApplication\JsApplication\obj\Debug\JsApplication.pdb
+C:\Users\Mauro\Documents\DEV\WebApplication\JsApplication\obj\Debug\JsApplication.csprojResolveAssemblyReference.cache

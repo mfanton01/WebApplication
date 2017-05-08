@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{FD8AAAAB-B3DD-428E-976C-2A928DBA3934}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppIdentityServer", "WebAppIdentityServer\WebAppIdentityServer.csproj", "{FD8AAAAB-B3DD-428E-976C-2A928DBA3934}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsApplication", "JsApplication\JsApplication.csproj", "{E7B68417-9FE2-4E14-884A-9BD99A0A787C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppJsApplication", "WebAppJsApplication\WebAppJsApplication.csproj", "{E7B68417-9FE2-4E14-884A-9BD99A0A787C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

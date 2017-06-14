@@ -96,6 +96,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="parameters.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>

@@ -4,6 +4,8 @@ require 'Pathname'
 require 'rake/clean'
 
 
+$ss_cert_filename = "WebApplicationSSCerTest"
+$trusted_cert_filename = "WebApplicationEncryptionCerTest"
 
 tests = FileList.new('SchoolWebApi.Tests.dll', 'SchoolWebApi-integration-tests.dll')
 
@@ -50,6 +52,91 @@ class TestRunner
 	end
 end
 
+def moveFile(source, target)
+	FileUtils.mkdir target.parent unless Dir.exists?(target.parent)
+	FileUtils.mv source, target.parent
+end
+
+
+def runCommand(command)
+	output = `#{command}`
+
+	if(!($?.success?)) then
+		raise output
+	end
+end
+
+class CertificateGenerator
+
+	include Path
+	@makecert_path = Pathname.new("C:\\Program Files (x86)\\Windows Kits\\8.1\\bin\\x64\\makecert.exe")
+	
+	def self.generteSSLSertificate()
+
+		ss_cert_dir = create_signed_certificate
+		tusted_sertificate = create_encryption_certificate
+
+		moveCertificate ss_cert_dir, tusted_sertificate
+
+		printCertIficateInstruction
+	end
+
+	def self.create_signed_certificate
+		
+		new_cer = "\"#{@makecert_path.to_s}\"" \
+		" -pe" \
+		" -n \"CN=#{$ss_cert_filename}\"" \
+		" -ss my" \
+		" -sr LocalMachine" \
+		" -a sha1" \
+		" -sky signature" \
+		" -r \"#{$ss_cert_filename}.cer\""
+
+		runCommand new_cer
+
+		return Path.solution + "#{$ss_cert_filename}.cer"
+	end
+
+	def self.create_encryption_certificate
+		encryption_cer =  "\"#{@makecert_path.to_s}\"" \
+		" -pe" \
+		" -n \"CN=#{$trusted_cert_filename}\"" \
+		" -ss my" \
+		" -sr LocalMachine" \
+		" -a sha1" \
+		" -sky exchange" \
+		" -eku 1.3.6.1.5.5.7.3.1" \
+		" -in \"#{$ss_cert_filename}\"" \
+		" -is my" \
+		" -ir LocalMachine" \
+		" -sp \"Microsoft RSA SChannel Cryptographic Provider\"" \
+		" -sy 12" \
+		" \"#{$trusted_cert_filename}.cer\""
+
+		runCommand encryption_cer
+
+		return Path.solution + "#{$trusted_cert_filename}.cer"
+	end
+
+	def self.printCertIficateInstruction()
+		puts "Start/Run/MMC"
+		puts "File/Add-Remove Snap-In"
+		puts "Click Add"
+		puts "Select Certificates and click Add"
+		puts "Select Computer Account and hit Next"
+		puts "Select Local Computer"
+		puts "Click Close"
+		puts "Click OK"
+		puts "Copy the #{$trusted_cert_filename} and"
+		puts "peste it to 'Trusted Root Certification Authority/Certificates'"
+end
+
+def self.moveCertificate(ss_cert_dir, encrypt_cer_dir)
+	target = Path.solution.parent + "certificates"
+	moveFile ss_cert_dir, (target + "#{ss_cert_dir.basename.to_s}")
+	moveFile encrypt_cer_dir, (target + "#{encrypt_cer_dir.basename.to_s}")
+end
+end
 
 class WebPublisher
 
@@ -61,15 +148,16 @@ class WebPublisher
 	def publish
 		system("\"#{@path.msbuild}/MSBuild.exe\" #{@path.solution}/WebApplication.sln  /p:Configuration=Release /p:Platform=\"Any CPU\" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:PackageLocation=\"#{@temp_deployment_dir}\"")
 
-		group_by_project
 
-		system("rm -r #{@temp_deployment_dir}")
+		group_by_project
+		copy_config_files		
+
+		system("rm -r #{@temp_deployment_dir}")		
 	end
 
 	def group_by_project
 		
-		FileList.new(Dir.glob(@temp_deployment_dir.to_s +  "/*.zip")).each  do |file|
-
+		FileList.new(Dir.glob(@temp_deployment_dir.to_s +  "/**/*.zip")).each  do |file|
 			path = Pathname.new(file)
 			filename = path.basename.to_s.match('.*[^(.zip)$]')		
 
@@ -81,7 +169,26 @@ class WebPublisher
 			end 
 		end
 	end
+
+	def copy_config_files()
+		FileList.new(Dir.glob(@path.solution.to_s +  "/**/*.csproj")).each do |file|
+			file_path = Pathname.new(file)  
+			proj_dir = file_path.parent
+
+			source = proj_dir + "parameters.xml"
+			target = @path.deployment + proj_dir.basename + "#{File.basename(file_path, file_path.extname)}.SetParameters.xml"
+
+			system("cp #{source} #{target}")	
+		end
+	end
+
+	def deploy_to_iis()
+		FileList.new(Dir.glob(@path.deployment.to_s +  "/**/*.cmd")).each  do |file|
+			system("#{file} /Y")
+		end
+	end
 end
+
 
 desc "Build Web API`"
 task :build do
@@ -90,11 +197,19 @@ end
 
 desc "Publish Web Application"
 task :publish => [:build] do
+
+	sh "rm -r #{Path.deployment}" if Dir.exists?(Path.deployment)
 	publisher = WebPublisher.new(Path)
 	publisher.publish
+	publisher.deploy_to_iis
 end
 
 desc "Run Unit test"
 task :unit do 
 	TestRunner.run(tests.to_ary.map { |i| Path.out + i.to_s }.join(" "))
+end
+
+desc "Generate Server certificate for SSL"
+task :generate_ss_cer do
+	CertificateGenerator.generteSSLSertificate
 end

@@ -1,11 +1,15 @@
-﻿namespace IdentityServer
-{
-    using Config;
-    using IdentityServer3.Core.Configuration;
-    using Owin;
-    using System;
-    using System.Security.Cryptography.X509Certificates;
+﻿
+using Microsoft.Owin;
+using IdentityServer.Config;
+using IdentityServer3.Core.Configuration;
+using Owin;
+using System;
+using System.Security.Cryptography.X509Certificates;
 
+[assembly: OwinStartup(typeof(IdentityServer.Startup))]
+
+namespace IdentityServer
+{    
     public class Startup
     {
         public void Configuration(IAppBuilder app)
